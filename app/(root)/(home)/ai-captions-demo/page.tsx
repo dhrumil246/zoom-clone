@@ -65,7 +65,7 @@ export default function AICaptionsDemoPage() {
         </div>
         <p className="text-xl text-gray-300 max-w-3xl mx-auto">
           Experience the future of video conferencing with intelligent, real-time caption enhancement 
-          powered by NVIDIA's cutting-edge AI technology.
+          powered by NVIDIA&apos;s cutting-edge AI technology.
         </p>
       </div>
 
@@ -256,14 +256,14 @@ export default function AICaptionsDemoPage() {
             <div className="space-x-4">
               <Button
                 className="bg-blue-600 hover:bg-blue-700 px-8 py-3"
-                onClick={() => window.location.href = '/'}
+                onClick={() => { window.location.href = '/'; }}
               >
                 Start Meeting
               </Button>
               <Button
                 variant="outline"
                 className="border-gray-400 text-gray-300 hover:bg-gray-700 px-8 py-3"
-                onClick={() => window.location.href = '/personal-room'}
+                onClick={() => { window.location.href = '/personal-room'; }}
               >
                 Personal Room
               </Button>

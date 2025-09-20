@@ -1,7 +1,7 @@
 // app/(root)/(home)/sentiment-dashboard/page.tsx
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import SentimentIndicator from '@/components/sentiment/SentimentIndicator';
@@ -18,10 +18,8 @@ import {
   Frown,
   Meh,
   AlertTriangle,
-  BarChart3,
   PieChart,
   Activity,
-  Zap,
   Eye,
   Settings
 } from 'lucide-react';
@@ -94,22 +92,14 @@ const mockSentimentData = {
 };
 
 export default function SentimentDashboardPage() {
-  const [selectedTimeRange, setSelectedTimeRange] = useState<'1h' | '4h' | '24h' | '7d'>('1h');
-  const [selectedMetric, setSelectedMetric] = useState<'overall' | 'emotions' | 'participants'>('overall');
   const [isLive, setIsLive] = useState(false);
 
   const {
     currentSentiment,
     conversationHistory,
-    meetingSummary,
-    isAnalyzing,
-    error,
     emotionalAlerts,
     getSentimentTrends,
     getParticipantMoods,
-    generateMeetingSummary,
-    hasRecentActivity,
-    averageMeetingSentiment,
   } = useSentimentAnalysis({
     settings: {
       enableRealTimeAnalysis: isLive,
@@ -124,7 +114,6 @@ export default function SentimentDashboardPage() {
   // Use mock data if no real data is available
   const displaySentiment = currentSentiment || mockSentimentData.currentSentiment;
   const displayHistory = conversationHistory.length > 0 ? conversationHistory : mockSentimentData.conversationHistory;
-  const sentimentTrends = getSentimentTrends();
   const participantMoods = getParticipantMoods();
 
   const getOverallMoodStats = () => {

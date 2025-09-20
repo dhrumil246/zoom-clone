@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Brain, Sparkles, FileText, BarChart3 } from 'lucide-react';
+import { Brain, Sparkles, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Mic, MicOff, X, Settings } from 'lucide-react';
+import { Mic, MicOff, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -33,10 +33,8 @@ export default function LiveCaptions({ className }: LiveCaptionsProps) {
   const {
     isListening,
     isSupported,
-    transcript,
     error,
     startListening,
-    stopListening,
     toggleListening
   } = useSpeechRecognition({
     onResult: (transcript, isFinal) => {
@@ -138,7 +136,7 @@ export default function LiveCaptions({ className }: LiveCaptionsProps) {
             className="text-white leading-relaxed"
             style={{ fontSize: `${settings.fontSize}px` }}
           >
-            "{currentTranscript}"
+            &quot;{currentTranscript}&quot;
           </p>
         </div>
       )}

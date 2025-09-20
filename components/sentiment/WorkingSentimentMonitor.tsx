@@ -326,7 +326,7 @@ export default function WorkingSentimentMonitor() {
             {sentimentHistory.length === 0 && !isAnalyzing && (
               <div className="text-center py-4">
                 <p className="text-gray-400 text-sm mb-2">
-                  🎤 Start speaking or click "Test Analysis"
+                  🎤 Start speaking or click &quot;Test Analysis&quot;
                 </p>
                 <p className="text-gray-500 text-xs">
                   AI will analyze emotions in real-time during meetings

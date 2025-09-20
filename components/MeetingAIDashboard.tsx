@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { 
   Brain, 
   Mic, 
@@ -9,20 +9,11 @@ import {
   BarChart3, 
   MessageSquare, 
   Sparkles,
-  ChevronUp,
-  ChevronDown,
-  Volume2,
-  VolumeX,
-  Eye,
-  EyeOff,
   Download,
   Share,
-  X,
-  Play,
-  Pause
+  X
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Slider } from '@/components/ui/slider';

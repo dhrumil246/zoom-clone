@@ -1,16 +1,13 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { 
-  MessageSquare, 
   Download, 
   FileText, 
-  Brain, 
   Settings,
   Mic,
   MicOff,
   Sparkles,
-  ChevronUp,
   ChevronDown,
   BarChart3
 } from 'lucide-react';

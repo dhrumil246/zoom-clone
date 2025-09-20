@@ -32,7 +32,6 @@ export default function FloatingCaptions({
   const {
     isListening,
     isSupported,
-    transcript,
     startListening,
     stopListening
   } = useSpeechRecognition({
@@ -140,7 +139,7 @@ export default function FloatingCaptions({
               </span>
             </div>
             <p className="text-white text-sm mt-1 leading-relaxed">
-              "{currentText}"
+              &quot;{currentText}&quot;
             </p>
           </div>
         </div>

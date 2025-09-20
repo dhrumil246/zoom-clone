@@ -6,7 +6,7 @@ import { X, AlertTriangle, TrendingUp, TrendingDown, Heart } from 'lucide-react'
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-interface EmotionalAlert {
+interface EmotionalAlertData {
   id: string;
   type: 'positive_shift' | 'negative_shift' | 'high_tension' | 'mood_drop';
   message: string;
@@ -15,7 +15,7 @@ interface EmotionalAlert {
 }
 
 interface EmotionalAlertProps {
-  alert: EmotionalAlert;
+  alert: EmotionalAlertData;
   onDismiss: (id: string) => void;
   autoHide?: boolean;
   autoHideDelay?: number;
@@ -184,7 +184,7 @@ export default function EmotionalAlert({
 
 // Container component for multiple alerts
 interface EmotionalAlertsContainerProps {
-  alerts: EmotionalAlert[];
+  alerts: EmotionalAlertData[];
   onDismiss: (id: string) => void;
   maxAlerts?: number;
 }

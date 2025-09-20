@@ -127,7 +127,7 @@ export default function SpeechDebugger() {
           {transcript && (
             <div className="bg-dark-2 p-3 rounded-lg">
               <h4 className="text-sm font-medium text-green-400 mb-1">Live Transcript:</h4>
-              <p className="text-sm text-gray-300">"{transcript}"</p>
+              <p className="text-sm text-gray-300">&quot;{transcript}&quot;</p>
             </div>
           )}
 
@@ -153,7 +153,7 @@ export default function SpeechDebugger() {
                     <span className="text-gray-500">
                       {caption.timestamp.toLocaleTimeString()}
                     </span>
-                    <span className="ml-2">"{caption.text}"</span>
+                    <span className="ml-2">&quot;{caption.text}&quot;</span>
                   </div>
                 ))}
               </div>
@@ -178,8 +178,8 @@ export default function SpeechDebugger() {
           <div className="bg-blue-900/20 border border-blue-500/30 p-3 rounded-lg">
             <h4 className="text-sm font-medium text-blue-400 mb-1">Instructions:</h4>
             <ol className="text-xs text-gray-300 space-y-1">
-              <li>1. Click "Test API" to check browser support</li>
-              <li>2. Click "Start Listening" (allow mic permissions)</li>
+              <li>1. Click &quot;Test API&quot; to check browser support</li>
+              <li>2. Click &quot;Start Listening&quot; (allow mic permissions)</li>
               <li>3. Speak clearly into your microphone</li>
               <li>4. Watch for live transcript and captions</li>
             </ol>
