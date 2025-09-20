@@ -22,21 +22,6 @@ export const sidebarLinks = [
     label: 'Recordings',
   },
   {
-    imgURL: '/icons/captions-icon.svg',
-    route: '/captions',
-    label: 'Captions',
-  },
-  {
-    imgURL: '/icons/captions-icon.svg',
-    route: '/ai-captions-demo',
-    label: 'AI Captions Demo',
-  },
-  {
-    imgURL: '/icons/captions-icon.svg',
-    route: '/sentiment-dashboard',
-    label: 'Sentiment Dashboard',
-  },
-  {
     imgURL: '/icons/add-personal.svg',
     route: '/personal-room',
     label: 'Personal Room',

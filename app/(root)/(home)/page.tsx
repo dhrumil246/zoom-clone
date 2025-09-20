@@ -1,5 +1,4 @@
 import MeetingTypeList from '@/components/MeetingTypeList';
-import AICaptionsAnnouncement from '@/components/AICaptionsAnnouncement';
 
 const Home = () => {
   const now = new Date();
@@ -20,8 +19,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-
-      <AICaptionsAnnouncement />
 
       <MeetingTypeList />
     </section>
