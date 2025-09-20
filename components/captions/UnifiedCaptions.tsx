@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import LiveCaptions from './LiveCaptions';
 import LiveCaptionsAI from './LiveCaptionsAI';
 import CaptionModeToggle from './CaptionModeToggle';
-import SentimentMonitor from '../sentiment/SentimentMonitor';
+import WorkingSentimentMonitor from '../sentiment/WorkingSentimentMonitor';
 import { SentimentProvider } from '@/contexts/SentimentContext';
 
 interface UnifiedCaptionsProps {
@@ -56,7 +56,7 @@ export default function UnifiedCaptions({
 
       {/* Sentiment Analysis Monitor */}
       {enableSentimentAnalysis && (
-        <SentimentMonitor />
+        <WorkingSentimentMonitor />
       )}
     </div>
   );

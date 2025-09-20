@@ -11,7 +11,7 @@ import {
   useCallStateHooks,
 } from '@stream-io/video-react-sdk';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Users, LayoutList } from 'lucide-react';
+import { Users, LayoutList, MessageSquare } from 'lucide-react';
 
 import {
   DropdownMenu,
@@ -22,7 +22,9 @@ import {
 } from './ui/dropdown-menu';
 import Loader from './Loader';
 import EndCallButton from './EndCallButton';
-import UnifiedCaptions from './captions/UnifiedCaptions';
+import LiveCaptions from './LiveCaptions';
+import AIControls from './AIControls';
+import { SentimentProvider } from '@/contexts/SentimentContext';
 import { cn } from '@/lib/utils';
 
 type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right';
@@ -33,6 +35,7 @@ const MeetingRoom = () => {
   const router = useRouter();
   const [layout, setLayout] = useState<CallLayoutType>('speaker-left');
   const [showParticipants, setShowParticipants] = useState(false);
+  const [showCaptions, setShowCaptions] = useState(true);
   const { useCallCallingState } = useCallStateHooks();
 
   // for more detail about types of CallingState see: https://getstream.io/video/docs/react/ui-cookbook/ringing-call/#incoming-call-panel
@@ -96,12 +99,26 @@ const MeetingRoom = () => {
             <Users size={20} className="text-white" />
           </div>
         </button>
-        
-        {/* Unified Captions with AI/Standard Mode Toggle */}
-        <UnifiedCaptions defaultMode="ai" allowModeSwitch={true} />
+
+        <button onClick={() => setShowCaptions((prev) => !prev)}>
+          <div className={cn(
+            "cursor-pointer rounded-2xl px-4 py-2 transition-colors",
+            showCaptions 
+              ? "bg-green-600 hover:bg-green-700" 
+              : "bg-[#19232d] hover:bg-[#4c535b]"
+          )}>
+            <MessageSquare size={20} className="text-white" />
+          </div>
+        </button>
         
         {!isPersonalRoom && <EndCallButton />}
       </div>
+
+      {/* AI Features - Direct Access */}
+      <SentimentProvider>
+        {showCaptions && <LiveCaptions />}
+        <AIControls />
+      </SentimentProvider>
     </section>
   );
 };

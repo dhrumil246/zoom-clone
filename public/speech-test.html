@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speech Recognition Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        button { padding: 10px 20px; margin: 10px; font-size: 16px; }
+        .listening { background-color: #ff4444; color: white; }
+        .not-listening { background-color: #44ff44; color: white; }
+        .output { background-color: #f0f0f0; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .error { background-color: #ffeeee; color: #cc0000; }
+        .success { background-color: #eeffee; color: #006600; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Speech Recognition Test</h1>
+        
+        <div id="status">Status: Not started</div>
+        
+        <button id="toggleBtn" class="not-listening" onclick="toggleRecognition()">
+            Start Listening
+        </button>
+        
+        <button onclick="testSupport()">Test Browser Support</button>
+        
+        <div class="output">
+            <h3>Live Transcript:</h3>
+            <div id="transcript">Click "Start Listening" and speak...</div>
+        </div>
+        
+        <div class="output">
+            <h3>Final Results:</h3>
+            <div id="results"></div>
+        </div>
+        
+        <div class="output">
+            <h3>Debug Log:</h3>
+            <div id="log"></div>
+        </div>
+    </div>
+
+    <script>
+        let recognition = null;
+        let isListening = false;
+        
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.innerHTML = `[${timestamp}] ${message}<br>` + logDiv.innerHTML;
+        }
+        
+        function updateStatus(status) {
+            document.getElementById('status').textContent = `Status: ${status}`;
+        }
+        
+        function testSupport() {
+            log('Testing browser support...');
+            
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            
+            if (SpeechRecognition) {
+                log('✅ Speech Recognition API is supported!');
+                updateStatus('Supported');
+                
+                // Test microphone access
+                navigator.mediaDevices.getUserMedia({ audio: true })
+                    .then(() => {
+                        log('✅ Microphone access granted');
+                    })
+                    .catch((err) => {
+                        log(`❌ Microphone access denied: ${err.message}`);
+                    });
+            } else {
+                log('❌ Speech Recognition API is not supported in this browser');
+                updateStatus('Not supported');
+            }
+        }
+        
+        function initRecognition() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            
+            if (!SpeechRecognition) {
+                log('❌ Speech Recognition not available');
+                return null;
+            }
+            
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'en-US';
+            
+            recognition.onstart = () => {
+                log('🎤 Speech recognition started');
+                updateStatus('Listening...');
+                isListening = true;
+                updateButton();
+            };
+            
+            recognition.onend = () => {
+                log('🛑 Speech recognition ended');
+                updateStatus('Stopped');
+                isListening = false;
+                updateButton();
+            };
+            
+            recognition.onresult = (event) => {
+                let interimTranscript = '';
+                let finalTranscript = '';
+                
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript;
+                    
+                    if (event.results[i].isFinal) {
+                        finalTranscript += transcript;
+                        log(`✅ Final result: "${transcript}"`);
+                        
+                        // Add to results
+                        const resultsDiv = document.getElementById('results');
+                        const timestamp = new Date().toLocaleTimeString();
+                        resultsDiv.innerHTML = `[${timestamp}] "${transcript}"<br>` + resultsDiv.innerHTML;
+                    } else {
+                        interimTranscript += transcript;
+                    }
+                }
+                
+                // Update live transcript
+                document.getElementById('transcript').textContent = 
+                    finalTranscript + interimTranscript;
+            };
+            
+            recognition.onerror = (event) => {
+                log(`❌ Error: ${event.error} - ${event.message || ''}`);
+                updateStatus(`Error: ${event.error}`);
+                isListening = false;
+                updateButton();
+            };
+            
+            return recognition;
+        }
+        
+        function updateButton() {
+            const btn = document.getElementById('toggleBtn');
+            if (isListening) {
+                btn.textContent = 'Stop Listening';
+                btn.className = 'listening';
+            } else {
+                btn.textContent = 'Start Listening';
+                btn.className = 'not-listening';
+            }
+        }
+        
+        function toggleRecognition() {
+            if (!recognition) {
+                recognition = initRecognition();
+            }
+            
+            if (!recognition) {
+                log('❌ Cannot initialize speech recognition');
+                return;
+            }
+            
+            if (isListening) {
+                recognition.stop();
+            } else {
+                try {
+                    recognition.start();
+                } catch (err) {
+                    log(`❌ Failed to start: ${err.message}`);
+                }
+            }
+        }
+        
+        // Auto-test support on page load
+        window.onload = () => {
+            testSupport();
+        };
+    </script>
+</body>
+</html>
